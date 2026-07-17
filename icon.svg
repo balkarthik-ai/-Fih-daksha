@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="ocean" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#4bc1ff" />
+      <stop offset="100%" stop-color="#0f73bd" />
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="24" fill="#5f9ce0" />
+  <path d="M120 70c0 27.6-22.4 50-50 50S20 97.6 20 70 42.4 20 70 20s50 22.4 50 50Z" fill="url(#ocean)" />
+  <path d="M44 65c5 1.6 11.2 2.9 16.2 2.2c8.8-1.1 15.5-6.8 21.7-11.6c4.5-3.6 10.4-7.1 15.6-7.3c1.2-.1 2.4.4 3.3 1.2c.8.8 1.4 2 1.2 3.2c-.4 3-1.2 6.4-1.6 9.5c-.7 5.3-1.6 10.8-4.8 15.3c-2.3 3.5-5.8 5.9-9.7 7.4c-5.8 2.2-12.2 2.6-18.2 1.7c-6-1-11.5-3.4-16.7-6.8c-1.3-.9-2.4-2.2-2.9-3.8c-.4-1.5-.4-3.3.6-4.5c1-1.4 2.7-1.8 4.3-2c3.6-.4 7.6.3 11.1 1.1Z" fill="#ffeb8e" />
+  <circle cx="62" cy="54" r="6" fill="#fff" />
+  <circle cx="63" cy="54" r="2.5" fill="#1d2733" />
+  <path d="M35 76c6 2 13 5 20 4c3.6-.4 7.1-1.4 10.6-2.9c4.4-1.9 8.3-5.1 11.1-9.1" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.7" />
+</svg>

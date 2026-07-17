@@ -1,0 +1,16 @@
+{
+  "name": "Hooked Harbor",
+  "short_name": "Hooked Harbor",
+  "description": "A simple fishing minigame with touch controls and install support.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#38b2ff",
+  "theme_color": "#38b2ff",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

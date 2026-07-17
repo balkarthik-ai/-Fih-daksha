@@ -2,9 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hooked Harbor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#38b2ff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Hooked Harbor" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="manifest.json" />
     <link rel="stylesheet" href="styles.css" />
+    <title>Hooked Harbor</title>
   </head>
   <body>
     <main class="game-shell">
@@ -15,7 +20,22 @@
         <span>Score: <strong id="score">0</strong></span>
         <span>Goal: 10 points</span>
       </div>
-      <p class="controls">Use ↑ ↓ ← → to move the hook. Press space to restart after the game ends.</p>
+      <div class="mobile-controls">
+        <div class="arrow-pad" aria-label="Fishing controls">
+          <button class="control-btn" data-action="ArrowUp" type="button">↑</button>
+          <div class="horizontal-row">
+            <button class="control-btn" data-action="ArrowLeft" type="button">←</button>
+            <button class="control-btn" data-action="ArrowDown" type="button">↓</button>
+            <button class="control-btn" data-action="ArrowRight" type="button">→</button>
+          </div>
+        </div>
+        <button id="restartButton" class="restart-btn" type="button">Play Again</button>
+      </div>
+      <div class="download-shell">
+        <button id="installButton" class="install-btn" type="button">Install App</button>
+        <a class="download-btn" href="hooked-harbor.zip" download>Download game package</a>
+      </div>
+      <p class="controls">Use the arrow buttons or keyboard arrows to move the hook. Press the button to restart.</p>
     </main>
 
     <script src="script.js"></script>

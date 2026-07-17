@@ -13,9 +13,14 @@ const state = {
   keys: {},
 };
 
-function clamp(value, min, max) {
-  return Math.min(max, Math.max(min, value));
-}
+const { clamp, getScoreDelta } = typeof window === 'undefined' ? require('./utils') : {
+  clamp: (value, min, max) => Math.min(max, Math.max(min, value)),
+  getScoreDelta: (color) => {
+    if (color === 'green') return 2;
+    if (color === 'red') return -2;
+    return 0;
+  },
+};
 
 function resetGame() {
   state.score = 0;
@@ -46,20 +51,16 @@ function spawnFish() {
 }
 
 function applyScore(color) {
-  if (color === 'green') {
-    state.score += 2;
-  } else if (color === 'red') {
-    state.score -= 2;
-  }
+  state.score += getScoreDelta(color);
 
   scoreEl.textContent = state.score;
 
   if (state.score >= 10) {
     state.gameOver = true;
-    state.message = 'You won! Press space to play again.';
+    state.message = 'You won! Tap Play Again to continue.';
   } else if (state.score <= -10) {
     state.gameOver = true;
-    state.message = 'You lost! Press space to try again.';
+    state.message = 'You lost! Tap Play Again to try again.';
   }
 }
 
@@ -264,6 +265,61 @@ function loop(timestamp) {
   requestAnimationFrame(loop);
 }
 
+const restartButton = document.getElementById('restartButton');
+const controlButtons = document.querySelectorAll('[data-action]');
+
+function setControlAction(action, pressed) {
+  state.keys[action] = pressed;
+}
+
+controlButtons.forEach((button) => {
+  const action = button.dataset.action;
+
+  button.addEventListener('pointerdown', (event) => {
+    event.preventDefault();
+    setControlAction(action, true);
+    button.classList.add('active');
+  });
+
+  button.addEventListener('pointerup', () => {
+    setControlAction(action, false);
+    button.classList.remove('active');
+  });
+
+  button.addEventListener('pointerleave', () => {
+    setControlAction(action, false);
+    button.classList.remove('active');
+  });
+});
+
+restartButton.addEventListener('click', resetGame);
+
+const installButton = document.getElementById('installButton');
+let deferredInstallPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  installButton.style.display = 'inline-flex';
+});
+
+installButton.addEventListener('click', async () => {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  const choice = await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  installButton.style.display = 'none';
+  if (choice.outcome === 'accepted') {
+    console.log('App install accepted');
+  }
+});
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js').catch(() => {
+    // silently ignore registration issues
+  });
+}
+
 window.addEventListener('keydown', (event) => {
   const key = event.key;
   if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(key)) {
@@ -286,3 +342,10 @@ window.addEventListener('keyup', (event) => {
 
 resetGame();
 requestAnimationFrame(loop);
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    clamp,
+    getScoreDelta,
+  };
+}
